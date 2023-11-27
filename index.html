@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Cash Register</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #calculator-container {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #display {
+      width: 75vh;
+      height: 15vh;
+      font-size: 10vh;
+      text-align: center;
+	  padding: 5%;
+    }
+
+    button {
+      font-size: 5vh;
+      margin: 2vh;
+      cursor: pointer;
+      width: 15vh;
+      height: 15vh;
+      border: none;
+      border-radius: 50%;
+      outline: none;
+    }
+
+    button.num {
+      background-color: blue;
+      color: white;
+    }
+
+    button.func {
+      background-color: red;
+      color: white;
+    }
+
+    button.green {
+      background-color: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="calculator-container">
+    <input type="text" id="display" readonly>
+  
+    <div>
+      <button class="num" onclick="addToDisplay(1)">1</button>
+      <button class="num" onclick="addToDisplay(2)">2</button>
+      <button class="num" onclick="addToDisplay(3)">3</button>
+      <button class="func" onclick="addToDisplay('+')">+</button>
+    </div>
+
+    <div>
+      <button class="num" onclick="addToDisplay(4)">4</button>
+      <button class="num" onclick="addToDisplay(5)">5</button>
+      <button class="num" onclick="addToDisplay(6)">6</button>
+      <button class="func" onclick="addToDisplay('-')">-</button>
+    </div>
+
+    <div>
+      <button class="num" onclick="addToDisplay(7)">7</button>
+      <button class="num" onclick="addToDisplay(8)">8</button>
+      <button class="num" onclick="addToDisplay(9)">9</button>
+      <button class="func" onclick="calculate()">=</button>
+    </div>
+
+    <div>
+      <button class="func" onclick="clearDisplay()">C</button>
+      <button class="num" onclick="addToDisplay(0)">0</button>
+      <button class="green" onclick="readDisplay()">Read</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+
+    function addToDisplay(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+
+    function readDisplay() {
+      if ('speechSynthesis' in window) {
+        const speech = new SpeechSynthesisUtterance(display.value);
+        speech.lang = 'en-US';
+        speech.volume = 1;
+        speech.rate = 1;
+        speech.pitch = 1;
+        window.speechSynthesis.speak(speech);
+      } else {
+        alert('Text-to-speech is not supported in your browser.');
+      }
+    }
+
+    // Fullscreen
+    document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullScreen || document.body.webkitRequestFullscreen;
+    document.body.requestFullscreen();
+  </script>
+</body>
+</html>

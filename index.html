@@ -126,7 +126,6 @@
     function readDisplay() {
       if ('speechSynthesis' in window) {
         const speech = new SpeechSynthesisUtterance(display.value);
-        speech.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Alex');
         speech.volume = 1;
         speech.rate = 0.5;
         speech.pitch = 0;

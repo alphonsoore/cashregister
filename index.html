@@ -12,12 +12,22 @@
       justify-content: center;
       height: 100vh;
       background-color: #f0f0f0;
+
+      user-select: none;
+	  user-scalable=no;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+	  -webkit-touch-callout: none !important;
+	  width=device-width;
+	  touch-action: manipulation;
     }
 
     #calculator-container {
       border: 2px solid #ccc;
       border-radius: 10px;
       overflow: hidden;
+	  padding: 5%;
     }
 
     #display {
@@ -53,6 +63,11 @@
       background-color: green;
       color: white;
     }
+
+    button.black {
+      background-color: black;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -85,6 +100,7 @@
       <button class="func" onclick="clearDisplay()">C</button>
       <button class="num" onclick="addToDisplay(0)">0</button>
       <button class="green" onclick="readDisplay()">Read</button>
+      <button class="black" onclick="toggleFullScreen()">FS</button>
     </div>
   </div>
 
@@ -110,19 +126,20 @@
     function readDisplay() {
       if ('speechSynthesis' in window) {
         const speech = new SpeechSynthesisUtterance(display.value);
-        speech.lang = 'en-US';
+        speech.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Alex');
         speech.volume = 1;
-        speech.rate = 1;
-        speech.pitch = 1;
+        speech.rate = 0.5;
+        speech.pitch = 0;
         window.speechSynthesis.speak(speech);
       } else {
         alert('Text-to-speech is not supported in your browser.');
       }
     }
 
-    // Fullscreen
-    document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullScreen || document.body.webkitRequestFullscreen;
-    document.body.requestFullscreen();
+    function toggleFullScreen() {
+      document.body.requestFullscreen = document.body.requestFullscreen || document.body.mozRequestFullScreen || document.body.webkitRequestFullscreen;
+      document.body.requestFullscreen();
+    }
   </script>
 </body>
 </html>

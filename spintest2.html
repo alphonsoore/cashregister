@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customizable Spinner</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.spinner {
+  background-image: url('dial2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 0px solid blue;
+}
+
+.arrow {
+  position: absolute;
+  width: 12px;
+  height: 150px;
+  background: repeating-linear-gradient(to bottom, blue, blue 10px, blue 10px, blue 20px); /* Example striped gradient */
+  transform-origin: bottom center;
+  top: 148px;
+  left: 294px;
+  border-radius: 5px;
+}
+
+
+.arrowbase {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: repeating-linear-gradient(to bottom, blue, blue 10px, blue 10px, blue 20px); /* Example striped gradient */
+  transform-origin: bottom center;
+  top: 285px;
+  left: 285x;
+  border-radius: 50%;
+}
+
+
+.arrow::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 30px solid blue;
+  bottom: 140px;
+  left: -7.5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 40px 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fullscreen-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+<div class="spinner-wrapper">
+<div class="spinner"></div>
+<div class="arrow"></div>
+<div class="arrowbase"></div>
+</div>
+
+
+<button class="fullscreen-button" onclick="toggleFullscreen()">Fullscreen</button>
+
+
+<button onclick="spin()">Spin</button>
+
+
+
+
+
+<script>
+function spin() {
+const spinner = document.querySelector('.arrow');
+const deg = Math.floor(5000 + Math.random() * 5000);
+spinner.style.transition = 'transform 5s ease-out';
+spinner.style.transform = `rotate(${deg}deg)`;
+}	
+
+
+function toggleFullscreen() {
+  const doc = window.document;
+  const docEl = doc.documentElement;
+
+  const requestFullscreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
+  const exitFullscreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullscreen.call(docEl);
+  } else {
+    exitFullscreen.call(doc);
+  }
+}
+
+</script>
+
+</body>
+</html>

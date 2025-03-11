@@ -12,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background: #fff;
         }
 
         #spinner-container {
@@ -26,6 +26,7 @@
             height: 100%;
             border-radius: 50%;
             position: absolute;
+            background: #aaa;
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
         }
 
@@ -36,14 +37,14 @@
 
         #indicator {
             position: absolute;
-            bottom: -5%;
+            top: -5%;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 2vmin solid transparent;
             border-right: 2vmin solid transparent;
-            border-top: 4vmin solid red;
+            border-bottom: 4vmin solid red;
         }
 
         #fullscreen-btn {
@@ -72,7 +73,7 @@
         async function loadImages() {
             const images = await fetchImages('./');
             const n = images.length;
-            const radius = spinner.clientWidth / 2;
+            const radius = spinner.clientWidth / 2.5;
 
             images.forEach((imgSrc, i) => {
                 const img = document.createElement('img');

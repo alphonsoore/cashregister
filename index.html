@@ -70,8 +70,13 @@
         const spinner = document.getElementById('spinner');
         let angle = 0;
 
-        async function loadImages() {
-            const images = await fetchImages('./');
+        const images = [
+            'apple.png',
+            'ball.png',
+            'can.png'
+        ];
+
+        function loadImages() {
             const n = images.length;
             const radius = spinner.clientWidth / 2.5;
 
@@ -89,20 +94,6 @@
                 img.style.transform = `translate(-50%, -50%) rotate(${theta + Math.PI / 2}rad)`;
                 spinner.appendChild(img);
             });
-        }
-
-        async function fetchImages(path) {
-            try {
-                const response = await fetch(path);
-                const text = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(text, 'text/html');
-                return Array.from(doc.links)
-                    .filter(link => link.href.endsWith('.png'))
-                    .map(link => `${path}/${link.href.split('/').pop()}`);
-            } catch {
-                return [];
-            }
         }
 
         function spin() {
